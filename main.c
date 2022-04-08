@@ -12,13 +12,14 @@ int main(void){
 
     char buf[256];
    
+   
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
-    getaddrinfo("127.0.0.1", "80", &hints, &res);
+    getaddrinfo("192.168.2.28", "80", &hints, &res);
     struct sockaddr *point = res->ai_addr;
     int socketfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
     connect(socketfd, res->ai_addr, res->ai_addrlen);
-    char *header = "GET / HTTP/1.1\nHost: 127.0.0.1\r\n\r\n";
+    char *header = "GET / HTTP/1.1\nHost: 192.168.2.28\r\n\r\n";
     send(socketfd, header, strlen(header),0);
     int byte_count = recv(socketfd, buf, sizeof(buf), 0);
     char** argv = malloc(sizeof(char*) * 1);
